@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+.title {
+	text-align: center;
+	font-family: 微软雅黑;
+}
+.btn-sep {
+	width: 15px; display: inline-block;
+}
+
+.table thead {
+	background-color: #eee;
+}
+
+.modal-backdrop, .modal-backdrop.fade.in {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+
+#J_alertModal .modal-header, #J_confirmModal .modal-header {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#J_alertModal .modal-body, #J_confirmModal .modal-body {
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+}
