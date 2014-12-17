@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context distributable="true">
+
+	<WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+	<Manager className="org.apache.catalina.session.PersistentManager"
+		saveOnRestart="false">
+		<Store className="org.apache.catalina.session.FileStore" />
+	</Manager>
+	
+	<Resource name="UserCenterDataSource"
+		auth="Container"
+		type="com.mchange.v2.c3p0.ComboPooledDataSource"
+		maxPoolSize="100"
+		minPoolSize="20" 
+		acquireIncrement="10"
+		maxIdleTime="180"
+        idleConnectionTestPeriod="60"
+        checkoutTimeout="3000"
+        automaticTestTable="Test"
+		factory="org.apache.naming.factory.BeanFactory" 
+		user="root" 
+		password="123456"
+		driverClass="com.mysql.jdbc.Driver"
+		jdbcUrl="jdbc:mysql://localhost:3306/m_usercenter_dev?characterEncoding=UTF8" 
+	/>
+	
+</Context>
+
