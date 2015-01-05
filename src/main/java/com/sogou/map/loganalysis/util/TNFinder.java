@@ -15,6 +15,7 @@ import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectExpressionItem;
 import net.sf.jsqlparser.statement.select.SelectItem;
 import net.sf.jsqlparser.statement.select.SelectVisitorAdapter;
+import net.sf.jsqlparser.statement.select.SetOperationList;
 import net.sf.jsqlparser.util.SelectUtils;
 
 public class TNFinder {
@@ -23,11 +24,14 @@ public class TNFinder {
 		
 		String sql = "select ac.a as \"中文\", ac.b as b1, (select count(*) from study where ac_id = ac.id) as study_cnt from account as ac where id = 1 and name like \"中文\" limit 5, 10";
 		
-		Statement stmt = CCJSqlParserUtil.parse(sql);
+		String sql2 = "select * from tbl_a union select * from tbl_b";
+		
+		Statement stmt = CCJSqlParserUtil.parse(sql2);
 		Select select = (Select) stmt;
 		select.getSelectBody().accept(new SelectVisitorAdapter(){
 			@Override
 		    public void visit(PlainSelect plainSelect) {
+				System.out.println("in ----------");
 				Limit limit = new Limit();
 				limit.setOffset(1);
 				limit.setRowCount(10);
@@ -40,11 +44,18 @@ public class TNFinder {
 				list.add(countItem);
 				plainSelect.setSelectItems(list);
 		    }
+			
+			@Override
+		    public void visit(SetOperationList setOpList) {
+				System.out.println(setOpList.getPlainSelects());
+				System.out.println(setOpList.getOperations());
+				System.out.println(setOpList);
+		    }
 		});
-		System.out.println(select);
+//		System.out.println(select);
 		
 		select = SelectUtils.buildSelectFromTable(new Table("mytable"));
-		System.out.println(select);
+//		System.out.println(select);
 		
 	}
 

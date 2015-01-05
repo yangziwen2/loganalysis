@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+@Deprecated
 public class SqlClause implements Serializable {
 	
 	private static final long serialVersionUID = -7924280276778261017L;

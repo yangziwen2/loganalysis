@@ -7,7 +7,7 @@
 			<div class="span4"></div>
 			<div class="span4">
 				<a class="brand">
-					<strong style="cursor: pointer" onclick="location.href='/index';">API-KEY工具</strong>
+					<strong style="cursor: pointer" onclick="location.href='/index';">SQL查询工具</strong>
 				</a>
 			</div>
 		</div>

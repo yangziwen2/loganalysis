@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.sogou.map.loganalysis.dao.DataDao;
 import com.sogou.map.loganalysis.dao.base.Page;
+import com.sogou.map.loganalysis.dao.base.SelectSqlHolder;
 import com.sogou.map.loganalysis.dao.base.SqlClause;
 import com.sogou.map.loganalysis.service.DataService;
 
@@ -21,4 +22,14 @@ public class DataServiceImpl implements DataService {
 		return dataDao.paginateBySql(start, limit, sql);
 	}
 
+	@Override
+	public Page<Map<String, Object>> getPageResultBySql(int start, int limit, String sql) {
+		return dataDao.paginateBySql(start, limit, SelectSqlHolder.build(sql));
+	}
+	
+	@Override
+	public Page<Map<String, Object>> getPageResultBySql(int start, int limit, SelectSqlHolder sqlHolder) {
+		return dataDao.paginateBySql(start, limit, sqlHolder);
+	}
+	
 }

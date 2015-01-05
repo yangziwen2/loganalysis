@@ -51,10 +51,10 @@ label {
 <body>
 <%@ include file="./include/header.jsp" %>
 <div class="wrapper">
-	<h3 class="title">请输入sql信息</h3>
+	<h3 class="title">请输入sql</h3>
 	<table id="J_sqlTbl" class="table table-bordered">
 		<tbody>
-				<tr>
+				<!-- <tr>
 					<td class="label-wrapper">
 						<label for="J_select">select:&nbsp;</label>
 					</td>
@@ -93,10 +93,15 @@ label {
 					<td>
 						<input id="J_orderBy" name="orderBy" type="text" class="input-medium" style="width: 670px;"/>
 					</td>
+				</tr> -->
+				<tr>
+					<td colspan="2">
+						<textarea id="J_sql" style="width: 790px; height: 200px; font-size: 18px; margin-bottom: 0px;"></textarea>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center;">
-						<button id="J_submit" class="btn btn-primary">提交</button>
+						<button id="J_submitBtn" class="btn btn-primary">提交</button>
 					</td>
 				</tr>
 		</tbody>
@@ -105,8 +110,13 @@ label {
 	<div style="width: 1000px; display:none;">
 		<table id="J_renderDataTbl" class="table table-bordered table-condensed table-hover" ></table>
 	</div>
+	<input type="hidden" id="J_pageStart" value="${page.start}"/>
+	<input type="hidden" id="J_pageLimit" value="${page.limit}"/>
 </div>
 <%@ include file="./include/includeJs.jsp" %>
 <script>
+seajs.use('app/index', function(index){
+	index.init();
+});
 </script>
 </html>
