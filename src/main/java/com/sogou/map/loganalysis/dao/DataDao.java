@@ -9,9 +9,11 @@ import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.sogou.map.loganalysis.dao.base.MetaDataColumnMapRowMapper;
 import com.sogou.map.loganalysis.dao.base.Page;
 import com.sogou.map.loganalysis.dao.base.SelectSqlHolder;
 import com.sogou.map.loganalysis.dao.base.SqlClause;
@@ -68,11 +70,11 @@ public class DataDao {
 		return jdbcTemplate.queryForObject(sqlHolder.toCountSql(), EMPTY_PARAM_MAP, Integer.class);
 	}
 	
-	public List<Map<String, Object>> listBySql(int start, int limit, String sql) {
-		return listBySql(start, limit, SelectSqlHolder.build(sql));
+	public List<Map<String, Object>> listBySql(int start, int limit, String sql, Map<String, Object> context) {
+		return listBySql(start, limit, SelectSqlHolder.build(sql), context);
 	}
 	
-	public List<Map<String, Object>> listBySql(int start, int limit, SelectSqlHolder sqlHolder) {
+	public List<Map<String, Object>> listBySql(int start, int limit, SelectSqlHolder sqlHolder, Map<String, Object> context) {
 		if(sqlHolder == null) {
 			return Collections.emptyList();
 		}
@@ -82,22 +84,24 @@ public class DataDao {
 		if(limit <= 0) {
 			limit = DEFAULT_LIMIT;
 		}
-		return jdbcTemplate.queryForList(sqlHolder.toQuerySql(start, limit), EMPTY_PARAM_MAP);
+		MetaDataColumnMapRowMapper metaDataRowMapper = new MetaDataColumnMapRowMapper();
+		context.put("metaDataRowMapper", metaDataRowMapper);
+		return jdbcTemplate.query(sqlHolder.toQuerySql(start, limit), new MapSqlParameterSource(EMPTY_PARAM_MAP), metaDataRowMapper);
 	}
 	
-	public Page<Map<String, Object>> paginateBySql(int start, int limit, String sql) {
+	public Page<Map<String, Object>> paginateBySql(int start, int limit, String sql, Map<String, Object> context) {
 		SelectSqlHolder sqlHolder = SelectSqlHolder.build(sql);
-		return paginateBySql(start, limit, sqlHolder);
+		return paginateBySql(start, limit, sqlHolder, context);
 	}
 	
-	public Page<Map<String, Object>> paginateBySql(int start, int limit, SelectSqlHolder sqlHolder) {
+	public Page<Map<String, Object>> paginateBySql(int start, int limit, SelectSqlHolder sqlHolder, Map<String, Object> context) {
 		if(start <= 0) {
 			start = 0;
 		}
 		if(limit <= 0) {
 			limit = DEFAULT_LIMIT;
 		}
-		return new Page<Map<String, Object>>(start, limit, countBySql(sqlHolder), listBySql(start, limit, sqlHolder));
+		return new Page<Map<String, Object>>(start, limit, countBySql(sqlHolder), listBySql(start, limit, sqlHolder, context));
 	}
 	
 }

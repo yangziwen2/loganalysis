@@ -106,8 +106,15 @@ label {
 				</tr>
 		</tbody>
 	</table>
-	<hr/>
-	<div style="width: 1000px; display:none;">
+	<hr style="margin-bottom: 0px;"/>
+	<div class="row-fluid">
+		<div class="span2">
+		</div>
+		<div class="span10">
+			<div id="J_pageBar" style="height: 30px;" class="pagination"></div>
+		</div>
+	</div>
+	<div id="J_dataWrapper" style="width: 1000px; display:none;">
 		<table id="J_renderDataTbl" class="table table-bordered table-condensed table-hover" ></table>
 	</div>
 	<input type="hidden" id="J_pageStart" value="${page.start}"/>

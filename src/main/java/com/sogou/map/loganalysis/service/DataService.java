@@ -10,8 +10,8 @@ public interface DataService {
 
 	Page<Map<String, Object>> getPageResultBySql(int start, int limit, SqlClause sql);
 	
-	Page<Map<String, Object>> getPageResultBySql(int start, int limit, String sql);
+	Page<Map<String, Object>> getPageResultBySql(int start, int limit, String sql, Map<String, Object> context);
 	
-	Page<Map<String, Object>> getPageResultBySql(int start, int limit, SelectSqlHolder sqlHolder);
+	Page<Map<String, Object>> getPageResultBySql(int start, int limit, SelectSqlHolder sqlHolder, Map<String, Object> context);
 
 }

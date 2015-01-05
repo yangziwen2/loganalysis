@@ -23,13 +23,13 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public Page<Map<String, Object>> getPageResultBySql(int start, int limit, String sql) {
-		return dataDao.paginateBySql(start, limit, SelectSqlHolder.build(sql));
+	public Page<Map<String, Object>> getPageResultBySql(int start, int limit, String sql, Map<String, Object> context) {
+		return dataDao.paginateBySql(start, limit, SelectSqlHolder.build(sql), context);
 	}
 	
 	@Override
-	public Page<Map<String, Object>> getPageResultBySql(int start, int limit, SelectSqlHolder sqlHolder) {
-		return dataDao.paginateBySql(start, limit, sqlHolder);
+	public Page<Map<String, Object>> getPageResultBySql(int start, int limit, SelectSqlHolder sqlHolder, Map<String, Object> context) {
+		return dataDao.paginateBySql(start, limit, sqlHolder, context);
 	}
 	
 }

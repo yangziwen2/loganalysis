@@ -1,5 +1,6 @@
 package com.sogou.map.loganalysis.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sogou.map.loganalysis.dao.base.MetaDataColumnMapRowMapper;
 import com.sogou.map.loganalysis.dao.base.Page;
 import com.sogou.map.loganalysis.dao.base.SelectSqlHolder;
 import com.sogou.map.loganalysis.dao.base.SqlClause;
@@ -48,17 +50,19 @@ public class DataController {
 			String sql
 			) {
 		Page<Map<String, Object>> page = null;
+		Map<String, Object> context = new HashMap<String, Object>();
 		try {
 			SelectSqlHolder sqlHolder = SelectSqlHolder.build(sql);
 			if(sqlHolder == null) {
 				return new ModelMap().addAttribute("success", false).addAttribute("message", "sql有误，请输入正确的查询语句!");
 			}
-			page = dataService.getPageResultBySql(start, limit, sqlHolder);
+			page = dataService.getPageResultBySql(start, limit, sqlHolder, context);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ModelMap().addAttribute("success", false).addAttribute("message", e.getMessage());
 		}
-		return new ModelMap().addAttribute("success", true).addAttribute("page", page);
+		MetaDataColumnMapRowMapper metaDataRowMapper = (MetaDataColumnMapRowMapper) context.get("metaDataRowMapper");
+		return new ModelMap().addAttribute("success", true).addAttribute("page", page).addAttribute("metaData", metaDataRowMapper.getDataTypeList());
 	}
 
 }

@@ -3,6 +3,7 @@ package com.sogou.map.loganalysis.dao.base;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import net.sf.jsqlparser.JSQLParserException;
@@ -83,8 +84,12 @@ public class SelectSqlHolder {
 	public String toCountSql() {
 		limit.setOffset(0);
 		limit.setRowCount(0);
-		plainSelect.setSelectItems(COUNT_ITEM_LIST);
-		return plainSelect.toString();
+		if(CollectionUtils.isNotEmpty(plainSelect.getGroupByColumnReferences())) {
+			return "select count(*) from (" + plainSelect.toString() + ") as result";
+		} else {
+			plainSelect.setSelectItems(COUNT_ITEM_LIST);
+			return plainSelect.toString();
+		}
 	}
 	
 	public static void main(String[] args) {
