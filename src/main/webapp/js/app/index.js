@@ -79,7 +79,7 @@ define(function(require, exports, module){
 					if(dataType.typeName == 'date') {
 						value = new Date(value).format('yyyy-MM-dd');
 					} else if(dataType.typeName == 'time') {
-						value = new Date(value).format('hh:mm:ss');
+						//value = new Date(value).format('hh:mm:ss');
 					} else if (dataType.typeName == 'datetime') {
 						value = new Date(value).format('yyyy-MM-dd hh:mm:ss');
 					}

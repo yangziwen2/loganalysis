@@ -23,6 +23,9 @@
 	font-size: 18px;
 	font-weight: bold;
 	font-family: 'Microsoft YaHei';
+	width: 80px;
+	height: 35px;
+	padding-top: 0px;
 }
 
 .wrapper div {

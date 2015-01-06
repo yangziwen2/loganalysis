@@ -89,7 +89,7 @@ public class SelectSqlHolder {
 	
 	public String toCountSql() {
 		limit.setOffset(0);
-		limit.setRowCount(0);
+		limit.setRowCount(1);
 		if(CollectionUtils.isNotEmpty(plainSelect.getGroupByColumnReferences()) || isDirectStats()) {
 			return "select count(*) from (" + plainSelect.toString() + ") as result";
 		} else {
