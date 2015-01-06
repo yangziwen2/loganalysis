@@ -15,11 +15,38 @@
 	<context:component-scan base-package="com.sogou.map.loganalysis.service"></context:component-scan>
 	<context:component-scan base-package="com.sogou.map.loganalysis.dao"></context:component-scan>
 	
-	<bean id="userCenterDataSource"
+	<!-- <bean id="userCenterDataSource"
 		class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
 			<value>java:/comp/env/UserCenterDataSource</value>
 		</property>
+	</bean> -->
+	
+	<bean id="dataSource"
+		class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close" >
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url" value="${jdbc.mysql.url}"></property>
+			<property name="username" value="${jdbc.mysql.username}"></property>
+			<property name="password" value="${jdbc.mysql.password}"></property>
+			<property name="initialSize" value="${jdbc.initialSize}"></property>
+			<property name="maxActive" value="${jdbc.maxActive}"></property>
+			<property name="maxIdle" value="${jdbc.maxIdle}"></property>
+			<property name="minIdle" value="${jdbc.minIdle}"></property>
+			<property name="logAbandoned" value="true"></property>
+			<property name="removeAbandoned" value="true"></property>
+			<property name="removeAbandonedTimeout" value="150"></property>
+			<property name="maxWait" value="3000"></property>
+			<property name="testWhileIdle" value="true"></property>
+			<property name="timeBetweenEvictionRunsMillis" value="300000"></property>
+			<property name="minEvictableIdleTimeMillis" value="320000"></property>
 	</bean>
+	
+	<beans profile="production">
+		<context:property-placeholder location="classpath:jdbc.properties"/>
+	</beans>
+	
+	<beans profile="development">
+		<context:property-placeholder location="classpath:jdbc-dev.properties"/>
+	</beans>
 	
 </beans>

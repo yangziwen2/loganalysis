@@ -106,7 +106,8 @@ define(function(require, exports, module){
 			mode: "text/x-mysql",
 			tabMode: "indent",
 			matchBrackets: true,
-			lineNumbers: true
+			lineNumbers: true,
+			lineWrapping: true
 		});
 	}
 	

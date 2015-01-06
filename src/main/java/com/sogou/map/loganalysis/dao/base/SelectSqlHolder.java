@@ -90,12 +90,37 @@ public class SelectSqlHolder {
 	public String toCountSql() {
 		limit.setOffset(0);
 		limit.setRowCount(0);
-		if(CollectionUtils.isNotEmpty(plainSelect.getGroupByColumnReferences())) {
+		if(CollectionUtils.isNotEmpty(plainSelect.getGroupByColumnReferences()) || isDirectStats()) {
 			return "select count(*) from (" + plainSelect.toString() + ") as result";
 		} else {
 			plainSelect.setSelectItems(COUNT_ITEM_LIST);
 			return plainSelect.toString();
 		}
+	}
+	
+	private boolean isDirectStats() {
+		if(CollectionUtils.isNotEmpty(plainSelect.getGroupByColumnReferences())) {
+			return false;
+		}
+		for(SelectItem selectItm: plainSelect.getSelectItems()) {
+			String selectItemStr = selectItm.toString().trim().toLowerCase();
+			if(selectItemStr.startsWith("count(")) {
+				return true;
+			}
+			if(selectItemStr.startsWith("max(")) {
+				return true;
+			}
+			if(selectItemStr.startsWith("min(")) {
+				return true;
+			}
+			if(selectItemStr.startsWith("sum(")) {
+				return true;
+			}
+			if(selectItemStr.startsWith("avg(")) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static void main(String[] args) {

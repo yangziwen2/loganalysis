@@ -12,6 +12,7 @@
 		<project.build.sourceEncoding>GBK</project.build.sourceEncoding>
 		<springframework.version>3.2.10.RELEASE</springframework.version>
 		<jackson.version>2.1.5</jackson.version>
+		<spring.profiles.active>development</spring.profiles.active>
 	</properties>
 	
 	<dependencies>
@@ -141,11 +142,18 @@
 			<version>5.1.22</version>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
 		    <groupId>c3p0</groupId>
 		    <artifactId>c3p0</artifactId>
 		    <version>0.9.1.2</version>
 		    <scope>runtime</scope>
+		</dependency> -->
+		
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<version>7.0.42</version>
+			<scope>runtime</scope>
 		</dependency>
 	
 		<dependency>
@@ -189,7 +197,7 @@
 					<systemProperties>
 						<spring.profiles.active>${spring.profiles.active}</spring.profiles.active>
 					</systemProperties>
-					<contextFile>${basedir}/conf/context-dev.xml</contextFile>
+					<!-- <contextFile>${basedir}/conf/context-dev.xml</contextFile> -->
 				</configuration>
 			</plugin>
 		</plugins>

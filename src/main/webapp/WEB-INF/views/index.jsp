@@ -47,12 +47,23 @@ label {
 	margin: 0px auto;
 }
 
+.cm-keyword {
+    font-weight: bold;
+    /*
+	font-family: 'Microsoft Yahei';
+	*/
+}
+
+#J_dataWrapper {
+	width: 1000px; display:none; overflow-x: auto;
+}
+
 </style>
 </head>
 <body>
 <%@ include file="./include/header.jsp" %>
 <div class="wrapper">
-	<h3 class="title">请输入sql</h3>
+	<h3 class="title">请输入查询SQL</h3>
 	<table id="J_sqlTbl" class="table table-bordered">
 		<tbody>
 				<!-- <tr>
@@ -115,7 +126,7 @@ label {
 			<div id="J_pageBar" style="height: 30px;" class="pagination"></div>
 		</div>
 	</div>
-	<div id="J_dataWrapper" style="width: 1000px; display:none;">
+	<div id="J_dataWrapper">
 		<table id="J_renderDataTbl" class="table table-bordered table-condensed table-hover" ></table>
 	</div>
 	<input type="hidden" id="J_pageStart" value="${page.start}"/>
