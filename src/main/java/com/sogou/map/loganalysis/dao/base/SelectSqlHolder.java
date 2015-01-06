@@ -3,9 +3,6 @@ package com.sogou.map.loganalysis.dao.base;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
@@ -19,7 +16,14 @@ import net.sf.jsqlparser.statement.select.SelectItem;
 import net.sf.jsqlparser.statement.select.SelectVisitorAdapter;
 import net.sf.jsqlparser.statement.select.SetOperationList;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SelectSqlHolder {
+	
+	private static final Logger logger = LoggerFactory.getLogger(SelectSqlHolder.class);
 	
 	private PlainSelect plainSelect;
 	
@@ -33,9 +37,10 @@ public class SelectSqlHolder {
 		if(StringUtils.isBlank(sql)) {
 			return null;
 		}
+		final String trimmedSql = sql.trim().replaceAll(";\\s*$", "");
 		final SelectSqlHolder holder = new SelectSqlHolder();
 		try {
-			Statement stmt = CCJSqlParserUtil.parse(sql);
+			Statement stmt = CCJSqlParserUtil.parse(trimmedSql);
 			if(!(stmt instanceof Select)) {
 				return null;
 			}
@@ -47,8 +52,9 @@ public class SelectSqlHolder {
 					plainSelect.setLimit(holder.limit);
 			    }
 			    public void visit(SetOperationList setOpList) {
+			    	String reformedSql = "select * from (" + trimmedSql + ") as temp_result";
 			    	try {
-						Select select = (Select)CCJSqlParserUtil.parse("select * from (" + sql + ") as temp_result");
+						Select select = (Select)CCJSqlParserUtil.parse("select * from (" + reformedSql + ") as temp_result");
 						select.getSelectBody().accept(new SelectVisitorAdapter(){
 							public void visit(PlainSelect plainSelect) {
 								holder.plainSelect = plainSelect;
@@ -57,13 +63,13 @@ public class SelectSqlHolder {
 						    }
 						});
 					} catch (JSQLParserException e) {
-						e.printStackTrace();
+						logger.error("SQL error [{}]", reformedSql);
 					}
 			    }
 			});
 			return holder;
 		} catch (JSQLParserException e) {
-			e.printStackTrace();
+			logger.error("SQL error [{}]", sql);
 		}
 		return null;
 	}

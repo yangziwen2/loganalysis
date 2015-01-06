@@ -8,9 +8,11 @@ define(function(require, exports, module){
 	
 	var start = 0, limit = 20;
 	
+	var editor = null;
+	
 	function initSubmitBtn() {
 		$('#J_submitBtn').on('click', function() {
-			var sql = $('#J_sql').val();
+			var sql = editor && editor.getValue() || '';
 			start = 0; limit = 20;
 			if(!sql) {
 				common.alertMsg('sql不能为空!');
@@ -36,7 +38,7 @@ define(function(require, exports, module){
 	
 	function renderPageBar(page) {
 		common.buildPageBar('#J_pageBar', start, limit, page.totalCount, function(i, pageNum){
-			var sql = $('#J_sql').val();
+			var sql = editor && editor.getValue() || '';
 			if(!sql) {
 				common.alertMsg('sql不能为空!');
 				return;
@@ -99,7 +101,17 @@ define(function(require, exports, module){
 		$tbl.append($thead.append($tr));
 	}
 	
+	function initEditor() {
+		editor = CodeMirror.fromTextArea($('#J_sql')[0], {
+			mode: "text/x-mysql",
+			tabMode: "indent",
+			matchBrackets: true,
+			lineNumbers: true
+		});
+	}
+	
 	return {init: function() {
+		initEditor();
 		initSubmitBtn();
 	}};
 });

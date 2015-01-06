@@ -5,8 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>API-KEY工具</title>
+<title>SQL查询工具</title>
 <%@ include file="./include/includeCss.jsp" %>
+<link rel="stylesheet" href="${ctx_path}/css/codemirror.css" >
 <style>
 .wrapper {
 	text-align: center;
@@ -95,7 +96,7 @@ label {
 					</td>
 				</tr> -->
 				<tr>
-					<td colspan="2">
+					<td colspan="2" style="font-size: 20px">
 						<textarea id="J_sql" style="width: 790px; height: 200px; font-size: 18px; margin-bottom: 0px;"></textarea>
 					</td>
 				</tr>
@@ -121,6 +122,8 @@ label {
 	<input type="hidden" id="J_pageLimit" value="${page.limit}"/>
 </div>
 <%@ include file="./include/includeJs.jsp" %>
+<script type="text/javascript" src="${ctx_path}/js/codemirror/codemirror.js"></script>
+<script type="text/javascript" src="${ctx_path}/js/codemirror/mysql.js"></script>
 <script>
 seajs.use('app/index', function(index){
 	index.init();
