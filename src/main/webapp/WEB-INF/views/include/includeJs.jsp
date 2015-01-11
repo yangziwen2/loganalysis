@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=GBK"
+    pageEncoding="GBK"%>
 <script type="text/javascript" src="${ctx_path}/js/sea-modules/sea.js"></script>
 <script>
 var CTX_PATH = '${ctx_path}';

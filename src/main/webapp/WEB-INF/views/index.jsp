@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=GBK"
+    pageEncoding="GBK"%>
 <%@ include file="./include/include.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>SQL鏌ヨ宸ュ叿</title>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>SQL查询工具</title>
 <%@ include file="./include/includeCss.jsp" %>
 <link rel="stylesheet" href="${ctx_path}/css/codemirror.css" >
 <style>
@@ -66,7 +66,7 @@ label {
 <body>
 <%@ include file="./include/header.jsp" %>
 <div class="wrapper">
-	<h3 class="title">璇疯緭鍏ユ煡璇QL</h3>
+	<h3 class="title">请输入查询SQL</h3>
 	<table id="J_sqlTbl" class="table table-bordered">
 		<tbody>
 				<!-- <tr>
@@ -116,7 +116,7 @@ label {
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center;">
-						<button id="J_submitBtn" class="btn btn-primary">鎻愪氦</button>
+						<button id="J_submitBtn" class="btn btn-primary">提交</button>
 					</td>
 				</tr>
 		</tbody>

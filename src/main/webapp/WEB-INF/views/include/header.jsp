@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=GBK"
+    pageEncoding="GBK"%>
 <%@ include file="./include.jsp" %>
 <div id="J_topNav" class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
@@ -7,7 +7,7 @@
 			<div class="span4"></div>
 			<div class="span4">
 				<a class="brand">
-					<strong style="cursor: pointer" onclick="location.href='/index';">SQLæŸ¥è¯¢å·¥å…·</strong>
+					<strong style="cursor: pointer" onclick="location.href='/index';">SQL²éÑ¯¹¤¾ß</strong>
 				</a>
 			</div>
 		</div>
